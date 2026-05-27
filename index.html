@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>backyard park</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700&family=Noto+Serif+JP:wght@300;400;700&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- ========== HEADER / NAVIGATION ========== -->
+  <header class="site-header" id="site-header">
+    <div class="header-inner">
+      <a href="#" class="logo">
+        <span class="logo-name">backyard park</span>
+      </a>
+      <button class="nav-toggle" id="nav-toggle" aria-label="メニューを開く">
+        <span></span><span></span><span></span>
+      </button>
+      <nav class="global-nav" id="global-nav">
+        <ul>
+          <li><a href="#concept">CONCEPT</a></li>
+          <li><a href="#shops">SHOPS</a></li>
+          <li><a href="#news">NEWS</a></li>
+          <li><a href="#events">EVENTS</a></li>
+          <li><a href="#access">ACCESS</a></li>
+          <li><a href="#contact" class="nav-contact">CONTACT</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <!-- ========== HERO ========== -->
+  <section class="hero" id="hero">
+    <div class="hero-slider" id="hero-slider">
+      <div class="hero-slide active" style="background-image: url('images/BP0122_p004.jpg')">
+        <div class="hero-overlay"></div>
+        <div class="hero-text">
+          <p class="hero-sub">Welcome to</p>
+          <h1 class="hero-title">backyard park</h1>
+          <p class="hero-desc">自然と人がつながる、あたらしいコミュニティの場</p>
+          <a href="#concept" class="btn btn-outline">詳しく見る</a>
+        </div>
+      </div>
+      <div class="hero-slide" style="background-image: url('images/BP0122_p007.jpg')">
+        <div class="hero-overlay"></div>
+        <div class="hero-text">
+          <p class="hero-sub">Enjoy the nature</p>
+          <h1 class="hero-title">森と暮らす</h1>
+          <p class="hero-desc">緑に囲まれた豊かな時間をお過ごしください</p>
+          <a href="#shops" class="btn btn-outline">ショップ一覧</a>
+        </div>
+      </div>
+      <div class="hero-slide" style="background-image: url('images/BP0122_p006.jpg')">
+        <div class="hero-overlay"></div>
+        <div class="hero-text">
+          <p class="hero-sub">Local &amp; Handmade</p>
+          <h1 class="hero-title">地域とつながる</h1>
+          <p class="hero-desc">地元の食・文化・人が集まる特別なイベント</p>
+          <a href="#events" class="btn btn-outline">イベント情報</a>
+        </div>
+      </div>
+    </div>
+    <div class="hero-controls">
+      <button class="hero-prev" id="hero-prev" aria-label="前へ">&#8592;</button>
+      <div class="hero-dots" id="hero-dots">
+        <button class="dot active" data-index="0"></button>
+        <button class="dot" data-index="1"></button>
+        <button class="dot" data-index="2"></button>
+      </div>
+      <button class="hero-next" id="hero-next" aria-label="次へ">&#8594;</button>
+    </div>
+  </section>
+
+  <!-- ========== INFO BANNER ========== -->
+  <div class="info-banner">
+    <div class="container">
+      <span class="info-label">NEW</span>
+      <p>2026年春の特別イベント「春のマルシェ」開催決定！詳細は<a href="#events">こちら</a></p>
+    </div>
+  </div>
+
+  <!-- ========== CONCEPT ========== -->
+  <section class="section concept" id="concept">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-en">CONCEPT</span>
+        <h2 class="section-title">コンセプト</h2>
+      </div>
+      <div class="concept-body">
+        <h3 class="concept-heading">自然と共に、<br>人がにぎわう場所</h3>
+        <p>
+          backyard park は、地域の人々が集い、自然を感じながら豊かな時間を過ごせるコミュニティスペースです。
+          地元の食材を使ったカフェ・ベーカリー、手作りの雑貨ショップ、四季折々のイベントが皆さまをお迎えします。
+        </p>
+        <p>
+          「グリーンクリエイティブ」をキーワードに、環境に配慮した持続可能な暮らしと、
+          地域コミュニティの活性化を目指しています。
+        </p>
+        <a href="#shops" class="btn btn-primary">ショップを見る</a>
+      </div>
+
+      <div class="concept-features">
+        <div class="feature-card">
+          <div class="feature-card-image">
+            <img src="images/BP0122_p011.jpg" alt="BBQ" />
+          </div>
+          <div class="feature-card-body">
+            <h4>BBQ</h4>
+            <p>広大な緑の中で楽しむ本格バーベキュー。家族や仲間と過ごす特別なアウトドア体験をご提供します。</p>
+          </div>
+        </div>
+        <div class="feature-card">
+          <div class="feature-card-image">
+            <img src="images/BP0122_p010.jpg" alt="SKATEBOARD" />
+          </div>
+          <div class="feature-card-body">
+            <h4>SKATEBOARD</h4>
+            <p>本格的なスケートパークで技を磨く。初心者から上級者まで、すべてのライダーを歓迎します。</p>
+          </div>
+        </div>
+        <div class="feature-card">
+          <div class="feature-card-image">
+            <img src="images/BP0122_p012.jpg" alt="DOGRUN" />
+          </div>
+          <div class="feature-card-body">
+            <h4>DOGRUN</h4>
+            <p>愛犬と一緒に思いっきり走れる広々としたドッグランエリア。大切な家族の一員も大歓迎です。</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== SHOPS ========== -->
+  <section class="section shops bg-light" id="shops">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-en">SHOPS</span>
+        <h2 class="section-title">ショップ一覧</h2>
+      </div>
+      <div class="shops-grid">
+
+        <article class="shop-card">
+          <div class="shop-body">
+            <span class="shop-tag">カフェ</span>
+            <h3 class="shop-name">里のカフェ</h3>
+            <p class="shop-desc">地元農家の新鮮な野菜や果物を使ったランチ・スイーツ。テラス席からの眺めが自慢です。</p>
+            <p class="shop-hours">営業時間：10:00 〜 17:00（水曜定休）</p>
+          </div>
+        </article>
+
+        <article class="shop-card">
+          <div class="shop-body">
+            <span class="shop-tag">ベーカリー</span>
+            <h3 class="shop-name">森のパン屋</h3>
+            <p class="shop-desc">石窯で焼いた自家製天然酵母パン。週末限定の特別メニューも人気です。</p>
+            <p class="shop-hours">営業時間：9:00 〜 16:00（月・火曜定休）</p>
+          </div>
+        </article>
+
+        <article class="shop-card">
+          <div class="shop-body">
+            <span class="shop-tag">雑貨</span>
+            <h3 class="shop-name">てしごと屋</h3>
+            <p class="shop-desc">地域の職人が作る陶器・木工品・布小物。一点ものの手作り雑貨を取り揃えています。</p>
+            <p class="shop-hours">営業時間：11:00 〜 17:00（木曜定休）</p>
+          </div>
+        </article>
+
+        <article class="shop-card">
+          <div class="shop-body">
+            <span class="shop-tag">農産物直売</span>
+            <h3 class="shop-name">みのりの市</h3>
+            <p class="shop-desc">朝採れ野菜・果物・加工品が並ぶ直売所。地域農家との交流も楽しめます。</p>
+            <p class="shop-hours">営業時間：8:00 〜 13:00（日曜のみ）</p>
+          </div>
+        </article>
+
+        <article class="shop-card">
+          <div class="shop-body">
+            <span class="shop-tag">体験工房</span>
+            <h3 class="shop-name">ものづくり工房</h3>
+            <p class="shop-desc">陶芸・染め物・木工など、大人も子どもも楽しめる体験プログラムを提供。</p>
+            <p class="shop-hours">営業時間：10:00 〜 16:00（要予約）</p>
+          </div>
+        </article>
+
+        <article class="shop-card">
+          <div class="shop-body">
+            <span class="shop-tag">セレクトショップ</span>
+            <h3 class="shop-name">くらしのえらびや</h3>
+            <p class="shop-desc">環境に優しい暮らしのアイテムを厳選。オーガニック食品・自然素材グッズを販売。</p>
+            <p class="shop-hours">営業時間：11:00 〜 18:00（火曜定休）</p>
+          </div>
+        </article>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== NEWS ========== -->
+  <section class="section news" id="news">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-en">NEWS</span>
+        <h2 class="section-title">お知らせ</h2>
+      </div>
+      <ul class="news-list">
+        <li class="news-item">
+          <time class="news-date" datetime="2026-05-20">2026.05.20</time>
+          <span class="news-tag tag-event">イベント</span>
+          <a class="news-title" href="#">「春のマルシェ2026」開催のお知らせ</a>
+        </li>
+        <li class="news-item">
+          <time class="news-date" datetime="2026-05-10">2026.05.10</time>
+          <span class="news-tag tag-shop">ショップ</span>
+          <a class="news-title" href="#">里のカフェ 夏メニュー開始のご案内</a>
+        </li>
+        <li class="news-item">
+          <time class="news-date" datetime="2026-04-28">2026.04.28</time>
+          <span class="news-tag tag-info">お知らせ</span>
+          <a class="news-title" href="#">ゴールデンウィーク期間中の営業時間について</a>
+        </li>
+        <li class="news-item">
+          <time class="news-date" datetime="2026-04-15">2026.04.15</time>
+          <span class="news-tag tag-event">イベント</span>
+          <a class="news-title" href="#">陶芸ワークショップ参加者募集中！</a>
+        </li>
+        <li class="news-item">
+          <time class="news-date" datetime="2026-03-30">2026.03.30</time>
+          <span class="news-tag tag-shop">ショップ</span>
+          <a class="news-title" href="#">新店舗「くらしのえらびや」オープン</a>
+        </li>
+      </ul>
+      <div class="section-more">
+        <a href="#" class="btn btn-secondary">ニュース一覧へ</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== EVENTS ========== -->
+  <section class="section events bg-light" id="events">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-en">EVENTS</span>
+        <h2 class="section-title">イベント</h2>
+      </div>
+      <div class="events-grid">
+
+        <article class="event-card">
+          <div class="event-date-block">
+            <span class="event-month">JUN</span>
+            <span class="event-day">7</span>
+            <span class="event-year">2026</span>
+          </div>
+          <div class="event-body">
+            <span class="event-tag">マルシェ</span>
+            <h3 class="event-title">春のマルシェ 2026</h3>
+            <p class="event-detail">地域の農家・クラフト作家・飲食店が集まる一日限りの特別マーケット。ステージイベントも多数開催予定。</p>
+            <p class="event-meta">📅 6月7日（日）10:00〜16:00 ／ 📍 backyard park 広場</p>
+          </div>
+        </article>
+
+        <article class="event-card">
+          <div class="event-date-block">
+            <span class="event-month">JUN</span>
+            <span class="event-day">21</span>
+            <span class="event-year">2026</span>
+          </div>
+          <div class="event-body">
+            <span class="event-tag">ワークショップ</span>
+            <h3 class="event-title">夏野菜の収穫体験＆料理教室</h3>
+            <p class="event-detail">地元農家の畑で野菜を収穫し、シェフと一緒に調理。家族で楽しめる食育イベントです。</p>
+            <p class="event-meta">📅 6月21日（日）9:00〜13:00 ／ 📍 提携農場（送迎あり）</p>
+          </div>
+        </article>
+
+        <article class="event-card">
+          <div class="event-date-block">
+            <span class="event-month">JUL</span>
+            <span class="event-day">5</span>
+            <span class="event-year">2026</span>
+          </div>
+          <div class="event-body">
+            <span class="event-tag">音楽</span>
+            <h3 class="event-title">夕涼みコンサート</h3>
+            <p class="event-detail">緑の中で楽しむアコースティックライブ。地元アーティストが出演。冷たい飲み物もご用意。</p>
+            <p class="event-meta">📅 7月5日（日）17:00〜19:30 ／ 📍 backyard park テラス</p>
+          </div>
+        </article>
+
+      </div>
+      <div class="section-more">
+        <a href="#" class="btn btn-secondary">イベントカレンダーへ</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== ACCESS ========== -->
+  <section class="section access" id="access">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-en">ACCESS</span>
+        <h2 class="section-title">アクセス</h2>
+      </div>
+      <div class="access-grid">
+        <div class="access-map">
+          <div class="map-placeholder">
+            <p>Google マップ</p>
+            <p style="font-size:0.85rem;margin-top:0.5rem;">（iframeを埋め込んでください）</p>
+          </div>
+        </div>
+        <div class="access-info">
+          <div class="access-block">
+            <h4>所在地</h4>
+            <p>〒000-0000<br>○○県○○市○○町 1-2-3</p>
+          </div>
+          <div class="access-block">
+            <h4>電車でお越しの場合</h4>
+            <p>○○線「○○駅」より徒歩15分<br>または路線バス「○○停」すぐ</p>
+          </div>
+          <div class="access-block">
+            <h4>お車でお越しの場合</h4>
+            <p>○○ICより車で約10分<br>駐車場：無料 100台</p>
+          </div>
+          <div class="access-block">
+            <h4>営業時間</h4>
+            <p>各ショップにより異なります<br>施設全体：9:00 〜 18:00</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== CONTACT ========== -->
+  <section class="section contact bg-green" id="contact">
+    <div class="container">
+      <div class="section-header center">
+        <span class="section-en light">CONTACT</span>
+        <h2 class="section-title light">お問い合わせ</h2>
+        <p class="contact-lead">ご不明な点やご質問は、お気軽にお問い合わせください。</p>
+      </div>
+      <form class="contact-form" id="contact-form">
+        <div class="form-row">
+          <label for="name">お名前 <span class="required">必須</span></label>
+          <input type="text" id="name" name="name" placeholder="山田 太郎" required />
+        </div>
+        <div class="form-row">
+          <label for="email">メールアドレス <span class="required">必須</span></label>
+          <input type="email" id="email" name="email" placeholder="example@email.com" required />
+        </div>
+        <div class="form-row">
+          <label for="subject">件名</label>
+          <input type="text" id="subject" name="subject" placeholder="お問い合わせ件名" />
+        </div>
+        <div class="form-row">
+          <label for="message">メッセージ <span class="required">必須</span></label>
+          <textarea id="message" name="message" rows="6" placeholder="お問い合わせ内容をご記入ください" required></textarea>
+        </div>
+        <div class="form-submit">
+          <button type="submit" class="btn btn-white">送信する</button>
+        </div>
+      </form>
+    </div>
+  </section>
+
+  <!-- ========== FOOTER ========== -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <div class="footer-logo">
+            <span class="footer-logo-name">backyard park</span>
+          </div>
+          <p class="footer-tagline">自然と人がつながる、<br>コミュニティの場</p>
+        </div>
+        <div class="footer-nav-group">
+          <h4>サイトマップ</h4>
+          <ul>
+            <li><a href="#concept">コンセプト</a></li>
+            <li><a href="#shops">ショップ一覧</a></li>
+            <li><a href="#news">お知らせ</a></li>
+            <li><a href="#events">イベント</a></li>
+            <li><a href="#access">アクセス</a></li>
+            <li><a href="#contact">お問い合わせ</a></li>
+          </ul>
+        </div>
+        <div class="footer-nav-group">
+          <h4>SNS</h4>
+          <ul>
+            <li><a href="#">Instagram</a></li>
+            <li><a href="#">Facebook</a></li>
+            <li><a href="#">X (Twitter)</a></li>
+          </ul>
+          <h4 style="margin-top:1.5rem;">お問い合わせ</h4>
+          <ul>
+            <li>TEL: 000-000-0000</li>
+            <li>受付：平日 10:00〜17:00</li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p class="footer-legal">
+          <a href="#">プライバシーポリシー</a> ／ <a href="#">利用規約</a>
+        </p>
+        <p class="footer-copy">&copy; 2026 backyard park. All Rights Reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <a href="#" class="page-top" id="page-top" aria-label="ページトップへ">▲</a>
+
+  <script src="script.js"></script>
+</body>
+</html>
