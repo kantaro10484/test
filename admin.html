@@ -1,0 +1,550 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>管理者ページ | backyard park</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="admin.css" />
+</head>
+<body>
+
+  <!-- ========== LOGIN SCREEN ========== -->
+  <div class="login-screen" id="login-screen">
+    <div class="login-card">
+      <div class="login-logo">backyard park</div>
+      <h1 class="login-title">管理者ログイン</h1>
+      <p class="login-demo-notice" id="demo-notice" style="display:none;">
+        🔧 デモモード中 ／ パスワード：<strong>admin1234</strong>
+      </p>
+      <p class="login-error" id="login-error" style="display:none;">パスワードが正しくありません。</p>
+      <form class="login-form" id="login-form" onsubmit="return false;">
+        <div class="login-row">
+          <label for="admin-email">メールアドレス</label>
+          <input type="text" id="admin-email" placeholder="admin@example.com" />
+        </div>
+        <div class="login-row">
+          <label for="admin-password">パスワード</label>
+          <input type="password" id="admin-password" placeholder="••••••••" required />
+        </div>
+        <button type="button" class="login-btn" id="login-btn" onclick="handleLogin()">ログイン</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- ========== DASHBOARD ========== -->
+  <div class="dashboard" id="dashboard" style="display:none;">
+
+    <!-- サイドバー -->
+    <aside class="sidebar">
+      <div class="sidebar-logo">backyard park</div>
+      <nav class="sidebar-nav">
+        <button class="sidebar-nav-btn active" onclick="switchTab('list')">
+          <span class="nav-icon">≡</span> 予約一覧
+        </button>
+        <button class="sidebar-nav-btn" onclick="switchTab('calendar')">
+          <span class="nav-icon">▦</span> カレンダー
+        </button>
+      </nav>
+      <div class="sidebar-footer">
+        <span id="admin-user-email" class="sidebar-user"></span>
+        <button class="logout-btn" onclick="handleLogout()">ログアウト</button>
+      </div>
+    </aside>
+
+    <!-- メインエリア -->
+    <main class="main-area">
+
+      <!-- ===== 予約一覧タブ ===== -->
+      <div class="tab-panel active" id="tab-list">
+        <div class="panel-header">
+          <h2 class="panel-title">予約一覧</h2>
+          <span class="reservation-count" id="list-count">0件</span>
+        </div>
+
+        <div class="status-filters">
+          <button class="filter-btn active" onclick="setFilter('all', this)">すべて</button>
+          <button class="filter-btn" onclick="setFilter('pending', this)">
+            <span class="badge badge-pending"></span>申請中
+          </button>
+          <button class="filter-btn" onclick="setFilter('approved', this)">
+            <span class="badge badge-approved"></span>承認済み
+          </button>
+          <button class="filter-btn" onclick="setFilter('rejected', this)">
+            <span class="badge badge-rejected"></span>却下
+          </button>
+          <button class="filter-btn" onclick="setFilter('cancelled', this)">
+            <span class="badge badge-cancelled"></span>キャンセル
+          </button>
+        </div>
+
+        <div class="table-wrapper">
+          <table class="reservation-table">
+            <thead>
+              <tr>
+                <th>申請日時</th>
+                <th>予約日</th>
+                <th>時間帯</th>
+                <th>お名前</th>
+                <th>人数</th>
+                <th>プラン</th>
+                <th>ステータス</th>
+                <th>操作</th>
+              </tr>
+            </thead>
+            <tbody id="table-body">
+              <tr class="table-empty"><td colspan="8">ログイン後に表示されます</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- ===== カレンダータブ ===== -->
+      <div class="tab-panel" id="tab-calendar" style="display:none;">
+        <div class="panel-header">
+          <h2 class="panel-title">カレンダー</h2>
+        </div>
+
+        <div class="calendar-wrapper">
+          <div class="calendar-area">
+            <div class="cal-nav">
+              <button class="cal-nav-btn" onclick="changeMonth(-1)">◀</button>
+              <span class="cal-title" id="cal-title"></span>
+              <button class="cal-nav-btn" onclick="changeMonth(1)">▶</button>
+            </div>
+            <div class="cal-grid-header">
+              <span>日</span><span>月</span><span>火</span>
+              <span>水</span><span>木</span><span>金</span>
+              <span class="sat">土</span>
+            </div>
+            <div class="cal-grid" id="cal-grid"></div>
+          </div>
+
+          <div class="day-detail-panel" id="day-detail" style="display:none;">
+            <div class="day-detail-header">
+              <h3 id="day-detail-title"></h3>
+              <button class="day-detail-close" onclick="closeDayDetail()">✕</button>
+            </div>
+            <div id="day-detail-body"></div>
+          </div>
+        </div>
+      </div>
+
+    </main>
+  </div>
+
+  <!-- ========== 詳細モーダル ========== -->
+  <div class="modal-overlay" id="modal-overlay" style="display:none;" onclick="if(event.target===this)closeModal()">
+    <div class="modal">
+      <div class="modal-header">
+        <h3 class="modal-title">予約詳細</h3>
+        <button class="modal-close" onclick="closeModal()">✕</button>
+      </div>
+      <div class="modal-body" id="modal-body"></div>
+      <div class="modal-footer" id="modal-footer"></div>
+    </div>
+  </div>
+
+  <!-- Firebase設定（Firebaseを設定した後に有効になります） -->
+  <script src="firebase-config.js"></script>
+
+  <!-- Firebase compat SDK（本番モード用） -->
+  <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore-compat.js"></script>
+
+  <script>
+    // ── デモモード判定 ────────────────────────────────────────
+    var IS_DEMO = (typeof firebaseConfig === 'undefined' || firebaseConfig.apiKey === 'YOUR_API_KEY');
+
+    // ── デモ用サンプルデータ ──────────────────────────────────
+    var DEMO_DATA = [
+      { id:'d1', name:'山田 太郎',  email:'yamada@example.com',    tel:'090-1234-5678', date:'2026-06-15', time:'9:00〜12:00',  people:'1〜5名',   plan:'スタンダードプラン', options:['機材レンタル'],               note:'',                status:'pending',   createdAt: new Date('2026-06-10T10:00:00') },
+      { id:'d2', name:'佐藤 花子',  email:'sato@example.com',      tel:'080-2345-6789', date:'2026-06-15', time:'12:00〜15:00', people:'6〜10名',  plan:'プレミアムプラン',   options:['ドリンクセット'],             note:'アレルギーあり',  status:'approved',  createdAt: new Date('2026-06-09T14:30:00') },
+      { id:'d3', name:'鈴木 一郎',  email:'suzuki@example.com',    tel:'070-3456-7890', date:'2026-06-20', time:'15:00〜18:00', people:'1〜5名',   plan:'スタンダードプラン', options:[],                             note:'',                status:'pending',   createdAt: new Date('2026-06-08T09:15:00') },
+      { id:'d4', name:'田中 美咲',  email:'tanaka@example.com',    tel:'090-4567-8901', date:'2026-06-22', time:'9:00〜12:00',  people:'11〜20名', plan:'プレミアムプラン',   options:['機材レンタル','キッズメニュー'], note:'子連れです',     status:'approved',  createdAt: new Date('2026-06-07T16:00:00') },
+      { id:'d5', name:'伊藤 健二',  email:'ito@example.com',       tel:'080-5678-9012', date:'2026-06-25', time:'12:00〜15:00', people:'6〜10名',  plan:'スタンダードプラン', options:['ドリンクセット'],             note:'',                status:'rejected',  createdAt: new Date('2026-06-06T11:00:00') },
+      { id:'d6', name:'渡辺さくら', email:'watanabe@example.com',  tel:'070-6789-0123', date:'2026-06-28', time:'15:00〜18:00', people:'1〜5名',   plan:'プレミアムプラン',   options:[],                             note:'',                status:'cancelled', createdAt: new Date('2026-06-05T13:45:00') },
+    ];
+
+    // ── 状態 ─────────────────────────────────────────────────
+    var reservations  = IS_DEMO ? DEMO_DATA.slice() : [];
+    var currentFilter = 'all';
+    var currentDate   = new Date();
+    var selectedDay   = null;
+    var db, auth;
+
+    // ── 初期化 ───────────────────────────────────────────────
+    window.addEventListener('DOMContentLoaded', function() {
+      if (IS_DEMO) {
+        document.getElementById('demo-notice').style.display = 'block';
+      } else {
+        // Firebase 本番モード
+        firebase.initializeApp(firebaseConfig);
+        auth = firebase.auth();
+        db   = firebase.firestore();
+
+        auth.onAuthStateChanged(function(user) {
+          if (user) {
+            showDashboard(user.email);
+            startFirestoreListener();
+          } else {
+            document.getElementById('login-screen').style.display = 'flex';
+            document.getElementById('dashboard').style.display    = 'none';
+          }
+        });
+      }
+    });
+
+    // ── ログイン処理 ─────────────────────────────────────────
+    function handleLogin() {
+      var pw  = document.getElementById('admin-password').value;
+      var err = document.getElementById('login-error');
+      err.style.display = 'none';
+
+      if (IS_DEMO) {
+        if (pw === 'admin1234') {
+          showDashboard('demo@backyard-park.jp');
+          renderList();
+          renderCalendar();
+        } else {
+          err.style.display = 'block';
+        }
+      } else {
+        var email = document.getElementById('admin-email').value;
+        var btn   = document.getElementById('login-btn');
+        btn.textContent = 'ログイン中...';
+        btn.disabled = true;
+        auth.signInWithEmailAndPassword(email, pw)
+          .catch(function() {
+            err.textContent = 'メールアドレスまたはパスワードが正しくありません。';
+            err.style.display = 'block';
+            btn.textContent = 'ログイン';
+            btn.disabled = false;
+          });
+      }
+    }
+
+    // ── ログアウト ───────────────────────────────────────────
+    function handleLogout() {
+      if (IS_DEMO) {
+        location.reload();
+      } else {
+        auth.signOut();
+      }
+    }
+
+    // ── ダッシュボード表示 ───────────────────────────────────
+    function showDashboard(email) {
+      document.getElementById('login-screen').style.display  = 'none';
+      document.getElementById('dashboard').style.display     = 'flex';
+      document.getElementById('admin-user-email').textContent = email;
+    }
+
+    // ── Firestore リアルタイム取得 ───────────────────────────
+    function startFirestoreListener() {
+      db.collection('reservations').orderBy('createdAt', 'desc').onSnapshot(function(snap) {
+        reservations = snap.docs.map(function(d) {
+          return Object.assign({ id: d.id }, d.data());
+        });
+        renderList();
+        renderCalendar();
+      });
+    }
+
+    // ── タブ切替 ─────────────────────────────────────────────
+    function switchTab(tab) {
+      document.querySelectorAll('.sidebar-nav-btn').forEach(function(b) { b.classList.remove('active'); });
+      event.currentTarget.classList.add('active');
+      document.getElementById('tab-list').style.display     = tab === 'list'     ? 'block' : 'none';
+      document.getElementById('tab-calendar').style.display = tab === 'calendar' ? 'block' : 'none';
+      if (tab === 'calendar') renderCalendar();
+    }
+
+    // ── ステータスフィルター ─────────────────────────────────
+    function setFilter(status, btn) {
+      document.querySelectorAll('.filter-btn').forEach(function(b) { b.classList.remove('active'); });
+      btn.classList.add('active');
+      currentFilter = status;
+      renderList();
+    }
+
+    // ── カレンダー月移動 ─────────────────────────────────────
+    function changeMonth(delta) {
+      currentDate.setMonth(currentDate.getMonth() + delta);
+      renderCalendar();
+    }
+
+    // ── 日別詳細パネルを閉じる ───────────────────────────────
+    function closeDayDetail() {
+      document.getElementById('day-detail').style.display = 'none';
+      selectedDay = null;
+      renderCalendar();
+    }
+
+    // ── モーダルを閉じる ─────────────────────────────────────
+    function closeModal() {
+      document.getElementById('modal-overlay').style.display = 'none';
+    }
+
+    // ── ステータス更新 ───────────────────────────────────────
+    function updateStatus(id, status) {
+      if (IS_DEMO) {
+        var r = reservations.find(function(x) { return x.id === id; });
+        if (r) r.status = status;
+        renderList();
+        renderCalendar();
+        closeModal();
+        if (selectedDay) {
+          var dayRes = reservations.filter(function(r) { return r.date === selectedDay; });
+          showDayDetail(selectedDay, dayRes);
+        }
+      } else {
+        db.collection('reservations').doc(id).update({ status: status });
+        closeModal();
+      }
+    }
+
+    // ── 削除 ─────────────────────────────────────────────────
+    function deleteReservation(id) {
+      if (!confirm('この予約を削除してもよろしいですか？')) return;
+      if (IS_DEMO) {
+        reservations = reservations.filter(function(x) { return x.id !== id; });
+        renderList();
+        renderCalendar();
+        closeModal();
+      } else {
+        db.collection('reservations').doc(id).delete();
+        closeModal();
+      }
+    }
+
+    // ── 予約一覧の描画 ───────────────────────────────────────
+    function renderList() {
+      var filtered = currentFilter === 'all'
+        ? reservations
+        : reservations.filter(function(r) { return r.status === currentFilter; });
+
+      document.getElementById('list-count').textContent = filtered.length + '件';
+
+      if (filtered.length === 0) {
+        document.getElementById('table-body').innerHTML =
+          '<tr class="table-empty"><td colspan="8">該当する予約はありません。</td></tr>';
+        return;
+      }
+
+      document.getElementById('table-body').innerHTML = filtered.map(function(r) {
+        return '<tr>' +
+          '<td class="td-date-small">' + formatTimestamp(r.createdAt) + '</td>' +
+          '<td><strong>' + (r.date || '—') + '</strong></td>' +
+          '<td>' + (r.time || '—') + '</td>' +
+          '<td><span class="table-name">' + (r.name || '—') + '</span><br><span class="table-sub">' + (r.email || '') + '</span></td>' +
+          '<td>' + (r.people || '—') + '</td>' +
+          '<td><span class="plan-badge">' + (r.plan || '—') + '</span></td>' +
+          '<td>' + statusBadge(r.status) + '</td>' +
+          '<td><div class="action-btns">' +
+            '<button class="action-btn btn-detail" onclick="openDetail(\'' + r.id + '\')">詳細</button>' +
+            (r.status === 'pending' ?
+              '<button class="action-btn btn-approve" onclick="updateStatus(\'' + r.id + '\',\'approved\')">承認</button>' +
+              '<button class="action-btn btn-reject"  onclick="updateStatus(\'' + r.id + '\',\'rejected\')">却下</button>' : '') +
+            ((r.status === 'pending' || r.status === 'approved') ?
+              '<button class="action-btn btn-cancel" onclick="updateStatus(\'' + r.id + '\',\'cancelled\')">ｷｬﾝｾﾙ</button>' : '') +
+            '<button class="action-btn btn-delete" onclick="deleteReservation(\'' + r.id + '\')">削除</button>' +
+          '</div></td>' +
+        '</tr>';
+      }).join('');
+    }
+
+    // ── カレンダーの描画 ─────────────────────────────────────
+    function renderCalendar() {
+      var year  = currentDate.getFullYear();
+      var month = currentDate.getMonth();
+      document.getElementById('cal-title').textContent = year + '年' + (month + 1) + '月';
+
+      var firstWeekday = new Date(year, month, 1).getDay();
+      var daysInMonth  = new Date(year, month + 1, 0).getDate();
+      var today        = new Date();
+      var grid         = document.getElementById('cal-grid');
+      grid.innerHTML   = '';
+
+      for (var i = 0; i < firstWeekday; i++) {
+        grid.insertAdjacentHTML('beforeend', '<div class="cal-cell empty"></div>');
+      }
+
+      for (var d = 1; d <= daysInMonth; d++) {
+        var dateStr = year + '-' + pad(month + 1) + '-' + pad(d);
+        var dayRes  = reservations.filter(function(r) { return r.date === dateStr; });
+        var pending   = dayRes.filter(function(r) { return r.status === 'pending'; }).length;
+        var approved  = dayRes.filter(function(r) { return r.status === 'approved'; }).length;
+        var rejected  = dayRes.filter(function(r) { return r.status === 'rejected'; }).length;
+        var cancelled = dayRes.filter(function(r) { return r.status === 'cancelled'; }).length;
+
+        var isToday    = d === today.getDate() && month === today.getMonth() && year === today.getFullYear();
+        var isSelected = selectedDay === dateStr;
+
+        var cls = 'cal-cell' + (isToday ? ' today' : '') + (isSelected ? ' selected' : '') + (dayRes.length > 0 ? ' has-res' : '');
+        var dots = (pending   ? '<span class="dot dot-pending"></span>'   : '') +
+                   (approved  ? '<span class="dot dot-approved"></span>'  : '') +
+                   (rejected  ? '<span class="dot dot-rejected"></span>'  : '') +
+                   (cancelled ? '<span class="dot dot-cancelled"></span>' : '');
+
+        var ds = dateStr;
+        grid.insertAdjacentHTML('beforeend',
+          '<div class="' + cls + '" data-date="' + ds + '" onclick="onDayClick(\'' + ds + '\')">' +
+            '<span class="cal-day-num">' + d + '</span>' +
+            (dayRes.length > 0 ? '<span class="cal-count">' + dayRes.length + '件</span>' : '') +
+            '<div class="cal-dots">' + dots + '</div>' +
+          '</div>'
+        );
+      }
+    }
+
+    function onDayClick(dateStr) {
+      var dayRes = reservations.filter(function(r) { return r.date === dateStr; });
+      showDayDetail(dateStr, dayRes);
+    }
+
+    // ── 日別詳細パネル（タイムライン） ────────────────────────
+    var TL_START = 9;
+    var TL_END   = 19;
+    var TL_HOURS = TL_END - TL_START;
+
+    function parseTimeRange(timeStr) {
+      if (!timeStr) return null;
+      var m = timeStr.match(/(\d+):(\d+)[〜~](\d+):(\d+)/);
+      if (!m) return null;
+      return {
+        start: parseInt(m[1]) + parseInt(m[2]) / 60,
+        end:   parseInt(m[3]) + parseInt(m[4]) / 60
+      };
+    }
+
+    function showDayDetail(dateStr, dayRes) {
+      selectedDay = dateStr;
+      renderCalendar();
+
+      var parts = dateStr.split('-');
+      document.getElementById('day-detail-title').textContent =
+        parts[0] + '年' + parseInt(parts[1]) + '月' + parseInt(parts[2]) + '日のタイムライン';
+
+      if (dayRes.length === 0) {
+        document.getElementById('day-detail-body').innerHTML = '<p class="no-res">この日の予約はありません。</p>';
+        document.getElementById('day-detail').style.display = 'flex';
+        return;
+      }
+
+      // 時間ラベル（1時間ごと）
+      var hourLabels = '';
+      for (var h = TL_START; h <= TL_END; h++) {
+        var pct = (h - TL_START) / TL_HOURS * 100;
+        hourLabels += '<span class="tl-hour-label" style="left:' + pct + '%">' + h + ':00</span>';
+      }
+
+      // グリッド線
+      var gridLines = '';
+      for (var g = TL_START; g <= TL_END; g++) {
+        var gp = (g - TL_START) / TL_HOURS * 100;
+        gridLines += '<div class="tl-grid-line" style="left:' + gp + '%"></div>';
+      }
+
+      // 予約行
+      var rows = dayRes.map(function(r) {
+        var range = parseTimeRange(r.time);
+        var bar = '';
+        if (range) {
+          var left  = Math.max(0, (range.start - TL_START) / TL_HOURS * 100);
+          var width = Math.min(100 - left, (range.end - range.start) / TL_HOURS * 100);
+          bar = '<div class="tl-bar tl-' + r.status + '" ' +
+            'style="left:' + left + '%;width:' + width + '%;" ' +
+            'onclick="openDetail(\'' + r.id + '\')" ' +
+            'title="' + (r.name || '') + ' ' + (r.time || '') + '">' +
+            '<span class="tl-bar-label">' + (r.time || '') + '</span>' +
+          '</div>';
+        }
+        return '<div class="tl-row">' +
+          '<div class="tl-name">' + (r.name || '—') +
+            '<span class="tl-name-sub">' + (r.people || '') + '</span>' +
+          '</div>' +
+          '<div class="tl-track">' + gridLines + bar + '</div>' +
+        '</div>';
+      }).join('');
+
+      // 凡例
+      var legend =
+        '<div class="tl-legend">' +
+          '<span class="tl-legend-item"><span class="tl-legend-dot tl-pending"></span>申請中</span>' +
+          '<span class="tl-legend-item"><span class="tl-legend-dot tl-approved"></span>承認済み</span>' +
+          '<span class="tl-legend-item"><span class="tl-legend-dot tl-rejected"></span>却下</span>' +
+          '<span class="tl-legend-item"><span class="tl-legend-dot tl-cancelled"></span>キャンセル</span>' +
+          '<span style="margin-left:auto;font-size:0.72rem;color:#aaa">バーをクリック→詳細</span>' +
+        '</div>';
+
+      document.getElementById('day-detail-body').innerHTML =
+        '<div class="timeline">' +
+          '<div class="tl-header">' +
+            '<div class="tl-name-col"></div>' +
+            '<div class="tl-hours">' + hourLabels + '</div>' +
+          '</div>' +
+          rows + legend +
+        '</div>';
+
+      document.getElementById('day-detail').style.display = 'flex';
+    }
+
+    // ── 詳細モーダル ─────────────────────────────────────────
+    function openDetail(id) {
+      var r = reservations.find(function(x) { return x.id === id; });
+      if (!r) return;
+
+      document.getElementById('modal-body').innerHTML =
+        '<dl class="detail-list">' +
+          '<dt>お名前</dt><dd>'     + (r.name   || '—') + '</dd>' +
+          '<dt>メール</dt><dd><a href="mailto:' + (r.email || '') + '">' + (r.email || '—') + '</a></dd>' +
+          '<dt>電話番号</dt><dd>'   + (r.tel    || '—') + '</dd>' +
+          '<dt>予約日</dt><dd>'     + (r.date   || '—') + '</dd>' +
+          '<dt>時間帯</dt><dd>'     + (r.time   || '—') + '</dd>' +
+          '<dt>人数</dt><dd>'       + (r.people || '—') + '</dd>' +
+          '<dt>プラン</dt><dd>'     + (r.plan   || '—') + '</dd>' +
+          '<dt>オプション</dt><dd>' + ((r.options && r.options.length) ? r.options.join('、') : 'なし') + '</dd>' +
+          '<dt>備考</dt><dd>'       + (r.note   || 'なし') + '</dd>' +
+          '<dt>申請日時</dt><dd>'   + formatTimestamp(r.createdAt) + '</dd>' +
+          '<dt>ステータス</dt><dd>' + statusBadge(r.status) + '</dd>' +
+        '</dl>';
+
+      document.getElementById('modal-footer').innerHTML =
+        '<div class="modal-actions">' +
+          (r.status === 'pending' ?
+            '<button class="action-btn btn-approve" onclick="updateStatus(\'' + r.id + '\',\'approved\')">承認する</button>' +
+            '<button class="action-btn btn-reject"  onclick="updateStatus(\'' + r.id + '\',\'rejected\')">却下する</button>' : '') +
+          ((r.status === 'pending' || r.status === 'approved') ?
+            '<button class="action-btn btn-cancel" onclick="updateStatus(\'' + r.id + '\',\'cancelled\')">キャンセルにする</button>' : '') +
+          '<button class="action-btn btn-delete" onclick="deleteReservation(\'' + r.id + '\')">削除する</button>' +
+        '</div>';
+
+      document.getElementById('modal-overlay').style.display = 'flex';
+    }
+
+    // ── ユーティリティ ───────────────────────────────────────
+    function statusBadge(status) {
+      var map = {
+        pending:   ['申請中',   'badge-pending'],
+        approved:  ['承認済み', 'badge-approved'],
+        rejected:  ['却下',     'badge-rejected'],
+        cancelled: ['ｷｬﾝｾﾙ',   'badge-cancelled']
+      };
+      var info = map[status] || ['不明', ''];
+      return '<span class="status-badge ' + info[1] + '">' + info[0] + '</span>';
+    }
+
+    function formatTimestamp(ts) {
+      if (!ts) return '—';
+      var d = (ts.toDate ? ts.toDate() : (ts instanceof Date ? ts : new Date(ts)));
+      return d.getFullYear() + '/' + pad(d.getMonth()+1) + '/' + pad(d.getDate()) + ' ' + pad(d.getHours()) + ':' + pad(d.getMinutes());
+    }
+
+    function pad(n) { return String(n).padStart(2, '0'); }
+  </script>
+</body>
+</html>

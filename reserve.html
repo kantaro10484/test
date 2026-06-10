@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BBQ予約 | backyard park</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700&family=Noto+Serif+JP:wght@300;400;700&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="reserve.css" />
+</head>
+<body>
+
+  <!-- ========== HEADER / NAVIGATION ========== -->
+  <header class="site-header" id="site-header">
+    <div class="header-inner">
+      <a href="index.html" class="logo">
+        <span class="logo-name">backyard park</span>
+      </a>
+      <button class="nav-toggle" id="nav-toggle" aria-label="メニューを開く">
+        <span></span><span></span><span></span>
+      </button>
+      <nav class="global-nav" id="global-nav">
+        <ul>
+          <li><a href="index.html#concept">CONCEPT</a></li>
+          <li><a href="index.html#shops">SHOPS</a></li>
+          <li><a href="index.html#news">NEWS</a></li>
+          <li><a href="index.html#events">EVENTS</a></li>
+          <li><a href="index.html#access">ACCESS</a></li>
+          <li><a href="index.html#contact">CONTACT</a></li>
+          <li><a href="reserve.html" class="nav-reserve nav-active">BBQ予約</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <!-- ========== PAGE HERO ========== -->
+  <div class="page-hero" style="background-image: url('images/BP0122_p011.jpg')">
+    <div class="hero-overlay"></div>
+    <div class="page-hero-text">
+      <p class="hero-sub">Reservation</p>
+      <h1 class="page-hero-title">BBQ予約</h1>
+      <p class="page-hero-desc">大自然の中で楽しむ本格バーベキューをご予約ください</p>
+    </div>
+  </div>
+
+  <!-- ========== RESERVATION FORM ========== -->
+  <section class="reserve-section">
+    <div class="container">
+
+      <div class="reserve-intro">
+        <h2 class="reserve-intro-title">ご予約について</h2>
+        <ul class="reserve-notes">
+          <li>ご予約は3日前までにお願いします。</li>
+          <li>キャンセルは前日17時までにご連絡ください。</li>
+          <li>雨天の場合はスタッフよりご連絡いたします。</li>
+          <li>ご不明な点はお問い合わせページよりご連絡ください。</li>
+        </ul>
+      </div>
+
+      <!-- 送信成功メッセージ -->
+      <div class="reserve-success" id="reserve-success" style="display:none;">
+        <div class="reserve-success-icon">✓</div>
+        <h3>ご予約を受け付けました</h3>
+        <p>スタッフより確認のご連絡をいたします。<br>しばらくお待ちください。</p>
+        <a href="index.html" class="btn btn-primary" style="margin-top:1.5rem;">トップページへ戻る</a>
+      </div>
+
+      <!-- 予約フォーム -->
+      <form class="reserve-form" id="reserve-form">
+
+        <div class="reserve-form-grid">
+
+          <!-- お名前 -->
+          <div class="form-row">
+            <label for="r-name">お名前 <span class="required">必須</span></label>
+            <input type="text" id="r-name" name="name" placeholder="山田 太郎" required />
+          </div>
+
+          <!-- メールアドレス -->
+          <div class="form-row">
+            <label for="r-email">メールアドレス <span class="required">必須</span></label>
+            <input type="email" id="r-email" name="email" placeholder="example@email.com" required />
+          </div>
+
+          <!-- 電話番号 -->
+          <div class="form-row">
+            <label for="r-tel">電話番号 <span class="required">必須</span></label>
+            <input type="tel" id="r-tel" name="tel" placeholder="090-0000-0000" required />
+          </div>
+
+          <!-- ご利用日 -->
+          <div class="form-row">
+            <label for="r-date">ご利用希望日 <span class="required">必須</span></label>
+            <input type="date" id="r-date" name="date" required />
+          </div>
+
+          <!-- 時間帯 -->
+          <div class="form-row">
+            <label for="r-time">ご利用時間帯 <span class="required">必須</span></label>
+            <select id="r-time" name="time" required>
+              <option value="" disabled selected>選択してください</option>
+              <option value="9:00〜12:00">9:00〜12:00（午前の部）</option>
+              <option value="12:00〜15:00">12:00〜15:00（昼の部）</option>
+              <option value="15:00〜18:00">15:00〜18:00（午後の部）</option>
+            </select>
+          </div>
+
+          <!-- 人数 -->
+          <div class="form-row">
+            <label for="r-people">ご利用人数 <span class="required">必須</span></label>
+            <select id="r-people" name="people" required>
+              <option value="" disabled selected>選択してください</option>
+              <option value="1〜5名">1〜5名</option>
+              <option value="6〜10名">6〜10名</option>
+              <option value="11〜20名">11〜20名</option>
+              <option value="21名以上">21名以上（要相談）</option>
+            </select>
+          </div>
+
+          <!-- プラン -->
+          <div class="form-row form-row-full">
+            <label>ご希望のプラン <span class="required">必須</span></label>
+            <div class="plan-cards">
+              <label class="plan-card">
+                <input type="radio" name="plan" value="スタンダードプラン" required />
+                <div class="plan-card-inner">
+                  <span class="plan-name">スタンダード</span>
+                  <span class="plan-price">¥3,000 <small>/人</small></span>
+                  <ul class="plan-includes">
+                    <li>炭・着火セット</li>
+                    <li>焼き網・トング</li>
+                    <li>テーブル・チェア</li>
+                  </ul>
+                </div>
+              </label>
+              <label class="plan-card">
+                <input type="radio" name="plan" value="プレミアムプラン" />
+                <div class="plan-card-inner">
+                  <span class="plan-name">プレミアム</span>
+                  <span class="plan-price">¥5,000 <small>/人</small></span>
+                  <ul class="plan-includes">
+                    <li>スタンダードの全内容</li>
+                    <li>食材セット付き</li>
+                    <li>専任スタッフ対応</li>
+                  </ul>
+                </div>
+              </label>
+            </div>
+          </div>
+
+          <!-- オプション -->
+          <div class="form-row form-row-full">
+            <label>オプション <span class="optional">任意</span></label>
+            <div class="checkbox-group">
+              <label class="checkbox-label">
+                <input type="checkbox" name="option_rental" value="機材レンタル" />
+                <span>機材レンタル（追加器具一式）</span>
+              </label>
+              <label class="checkbox-label">
+                <input type="checkbox" name="option_drink" value="ドリンクセット" />
+                <span>ドリンクセット（ソフトドリンク各種）</span>
+              </label>
+              <label class="checkbox-label">
+                <input type="checkbox" name="option_kids" value="キッズメニュー" />
+                <span>キッズメニュー追加</span>
+              </label>
+            </div>
+          </div>
+
+          <!-- 備考 -->
+          <div class="form-row form-row-full">
+            <label for="r-note">ご要望・備考 <span class="optional">任意</span></label>
+            <textarea id="r-note" name="note" rows="5" placeholder="アレルギー・持込み品・その他ご要望があればご記入ください"></textarea>
+          </div>
+
+        </div>
+
+        <div class="form-submit">
+          <button type="submit" class="btn btn-primary btn-large" id="submit-btn">予約を申し込む</button>
+          <p class="form-privacy">スタッフが内容を確認し、折り返しご連絡いたします。</p>
+        </div>
+
+      </form>
+    </div>
+  </section>
+
+  <!-- ========== FOOTER ========== -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <div class="footer-logo">
+            <span class="footer-logo-name">backyard park</span>
+          </div>
+          <p class="footer-tagline">自然と人がつながる、<br>コミュニティの場</p>
+        </div>
+        <div class="footer-nav-group">
+          <h4>サイトマップ</h4>
+          <ul>
+            <li><a href="index.html#concept">コンセプト</a></li>
+            <li><a href="index.html#shops">ショップ一覧</a></li>
+            <li><a href="index.html#news">お知らせ</a></li>
+            <li><a href="index.html#events">イベント</a></li>
+            <li><a href="index.html#access">アクセス</a></li>
+            <li><a href="index.html#contact">お問い合わせ</a></li>
+            <li><a href="reserve.html">BBQ予約</a></li>
+          </ul>
+        </div>
+        <div class="footer-nav-group">
+          <h4>SNS</h4>
+          <ul>
+            <li><a href="#">Instagram</a></li>
+            <li><a href="#">Facebook</a></li>
+            <li><a href="#">X (Twitter)</a></li>
+          </ul>
+          <h4 style="margin-top:1.5rem;">お問い合わせ</h4>
+          <ul>
+            <li>TEL: 000-000-0000</li>
+            <li>受付：平日 10:00〜17:00</li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p class="footer-legal">
+          <a href="#">プライバシーポリシー</a> ／ <a href="#">利用規約</a>
+        </p>
+        <p class="footer-copy">&copy; 2026 backyard park. All Rights Reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <a href="#" class="page-top" id="page-top" aria-label="ページトップへ">▲</a>
+
+  <script src="script.js"></script>
+  <script src="firebase-config.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore-compat.js"></script>
+  <script>
+    var form    = document.getElementById('reserve-form');
+    var success = document.getElementById('reserve-success');
+    var btn     = document.getElementById('submit-btn');
+
+    // Firebase が設定済みの場合のみ有効化
+    if (typeof firebaseConfig !== 'undefined' && firebaseConfig.apiKey !== 'YOUR_API_KEY') {
+      firebase.initializeApp(firebaseConfig);
+      var db = firebase.firestore();
+
+      form.addEventListener('submit', function(e) {
+        e.preventDefault();
+        btn.textContent = '送信中...';
+        btn.disabled = true;
+
+        var options = Array.from(
+          form.querySelectorAll('input[name^="option_"]:checked')
+        ).map(function(el) { return el.value; });
+
+        db.collection('reservations').add({
+          name:      form.name.value.trim(),
+          email:     form.email.value.trim(),
+          tel:       form.tel.value.trim(),
+          date:      form.date.value,
+          time:      form.time.value,
+          people:    form.people.value,
+          plan:      form.plan.value,
+          options:   options,
+          note:      form.note.value.trim(),
+          status:    'pending',
+          createdAt: firebase.firestore.FieldValue.serverTimestamp()
+        }).then(function() {
+          form.style.display = 'none';
+          success.style.display = 'block';
+          success.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }).catch(function(err) {
+          console.error(err);
+          alert('送信に失敗しました。しばらく後にもう一度お試しください。');
+          btn.textContent = '予約を申し込む';
+          btn.disabled = false;
+        });
+      });
+
+    } else {
+      // Firebase未設定時：ボタンを押したら案内を表示
+      form.addEventListener('submit', function(e) {
+        e.preventDefault();
+        alert('現在、予約システムの準備中です。\nお電話またはお問い合わせフォームよりご連絡ください。');
+      });
+    }
+  </script>
+</body>
+</html>
