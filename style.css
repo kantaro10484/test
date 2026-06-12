@@ -47,6 +47,7 @@ body {
   background: var(--color-white);
   line-height: 1.8;
   -webkit-font-smoothing: antialiased;
+  overflow-x: hidden; /* モバイルでの横はみ出し防止 */
 }
 
 img { display: block; width: 100%; height: auto; object-fit: cover; }

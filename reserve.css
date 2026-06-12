@@ -123,6 +123,7 @@
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
+  min-width: 0; /* グリッド内で入力欄の固有幅が列を押し広げるのを防ぐ */
 }
 .form-row-full {
   grid-column: 1 / -1;
@@ -136,15 +137,28 @@
 .form-row select,
 .form-row textarea {
   width: 100%;
+  min-width: 0;
+  max-width: 100%;
   padding: 0.75rem 1rem;
   border: 1px solid var(--color-border);
   border-radius: 4px;
   font-family: var(--font-sans);
-  font-size: 0.95rem;
+  font-size: 16px; /* 16px未満だとiOSがフォーカス時に自動ズームして横ずれする */
   color: var(--color-text);
   background: var(--color-white);
   transition: border-color var(--ease), box-shadow var(--ease);
   appearance: auto;
+}
+/* iOS Safari の日付入力：固有の見た目・サイズを無効化して他の欄と揃える */
+.form-row input[type="date"] {
+  display: block;
+  -webkit-appearance: none;
+  appearance: none;
+  min-height: 50px;
+  text-align: left;
+}
+.form-row input[type="date"]::-webkit-date-and-time-value {
+  text-align: left;
 }
 .form-row input:focus,
 .form-row select:focus,
