@@ -1040,6 +1040,14 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
   gap: 1rem;
   overflow: hidden;
   transition: opacity 0.8s ease, visibility 0.8s ease;
+  /* 保険：JSが動かない場合でも7秒後に必ず消える */
+  animation: openingAutoHide 0.8s ease 7s forwards;
+}
+@keyframes openingAutoHide {
+  to {
+    opacity: 0;
+    visibility: hidden;
+  }
 }
 /* 実写の日の出動画：画面いっぱいに表示 */
 .opening-video {

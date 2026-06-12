@@ -171,9 +171,16 @@ if (opening) {
 
     const openingVideo = opening.querySelector('.opening-video');
     if (openingVideo) {
-      // 動画が最後まで再生されたら閉じる（長い動画や再生できない環境向けに上限5.5秒）
+      // 動画が最後まで再生されたら、または読み込みエラー時に閉じる
       openingVideo.addEventListener('ended', closeOpening);
-      setTimeout(closeOpening, 5500);
+      openingVideo.addEventListener('error', closeOpening);
+
+      // 回線が遅く2.5秒以内に再生が始まらなければオープニングをスキップ
+      const startGuard = setTimeout(closeOpening, 2500);
+      openingVideo.addEventListener('playing', () => clearTimeout(startGuard), { once: true });
+
+      // 念のための上限（動画が長くても8秒で本体へ）
+      setTimeout(closeOpening, 8000);
     } else {
       setTimeout(closeOpening, 3400);
     }
