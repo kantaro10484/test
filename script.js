@@ -159,11 +159,24 @@ if (opening) {
       logoEl.appendChild(span);
     });
     document.body.classList.add('no-scroll');
-    setTimeout(() => {
+
+    let openingClosed = false;
+    function closeOpening() {
+      if (openingClosed) return;
+      openingClosed = true;
       opening.classList.add('opening-done');
       document.body.classList.remove('no-scroll');
       setTimeout(() => opening.remove(), 900);
-    }, 2300);
+    }
+
+    const openingVideo = opening.querySelector('.opening-video');
+    if (openingVideo) {
+      // 動画が最後まで再生されたら閉じる（長い動画や再生できない環境向けに上限5.5秒）
+      openingVideo.addEventListener('ended', closeOpening);
+      setTimeout(closeOpening, 5500);
+    } else {
+      setTimeout(closeOpening, 3400);
+    }
   }
 }
 
