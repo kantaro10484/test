@@ -9,10 +9,11 @@
 
 :root {
   /* Colors */
-  --color-green-dark:   #2d4a35;
-  --color-green:        #4a7c59;
-  --color-green-light:  #7aab8a;
-  --color-green-pale:   #e8f2eb;
+  /* モノトーン配色（元の緑と同じ明るさのグレーに変換） */
+  --color-green-dark:   #3f3f3f;
+  --color-green:        #696969;
+  --color-green-light:  #989898;
+  --color-green-pale:   #eeeeee;
   --color-brown:        #6b4c3b;
   --color-beige:        #f5f0e8;
   --color-beige-dark:   #e8dfd0;
@@ -618,7 +619,7 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
   flex-shrink: 0;
   letter-spacing: 0.05em;
 }
-.tag-event { background: #eaf3ec; color: var(--color-green-dark); }
+.tag-event { background: #efefef; color: var(--color-green-dark); }
 .tag-shop  { background: #fdf3e3; color: #8a6030; }
 .tag-info  { background: #eef0f5; color: #4a5070; }
 
@@ -827,7 +828,7 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
    FOOTER
    ============================================================ */
 .site-footer {
-  background: #1e2e22;
+  background: #282828;
   color: rgba(255,255,255,0.75);
   padding: 60px 0 0;
 }
@@ -1175,7 +1176,7 @@ body.custom-cursor-active select {
   width: 36px;
   height: 36px;
   margin: -18px 0 0 -18px;
-  border: 1.5px solid rgba(74, 124, 89, 0.55);
+  border: 1.5px solid rgba(105, 105, 105, 0.55);
   border-radius: 50%;
   transition: width 0.25s ease, height 0.25s ease, margin 0.25s ease, background 0.25s ease;
 }
@@ -1183,7 +1184,7 @@ body.custom-cursor-active select {
   width: 58px;
   height: 58px;
   margin: -29px 0 0 -29px;
-  background: rgba(74, 124, 89, 0.12);
+  background: rgba(105, 105, 105, 0.12);
 }
 .btn {
   will-change: transform;
