@@ -1089,8 +1089,13 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
     justify-content: flex-start;
     padding-top: 20vh;
   }
+  .opening-logo {
+    color: #fff;
+  }
   .opening-sub {
     margin-top: 1.5rem;
+    color: #fff;
+    border-top-color: rgba(255, 255, 255, 0.55);
   }
 }
 /* シネマティックなビネット（四隅の減光）：写真の上に重ねる */
