@@ -165,7 +165,7 @@
 .form-row textarea:focus {
   outline: none;
   border-color: var(--color-green);
-  box-shadow: 0 0 0 3px rgba(74,124,89,0.12);
+  box-shadow: 0 0 0 3px rgba(105,105,105,0.12);
 }
 .form-row textarea {
   resize: vertical;
