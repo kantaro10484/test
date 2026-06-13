@@ -1058,7 +1058,7 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
     visibility: hidden;
   }
 }
-/* 実写の日の出動画：画面いっぱいに表示
+/* 実写の日の出動画（PC表示用）：画面いっぱいに表示
    少し拡大して右下寄りを切り落とし、透かしマークを画面外に出す */
 .opening-video {
   position: absolute;
@@ -1068,6 +1068,27 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
   object-fit: cover;
   transform: scale(1.18);
   transform-origin: 25% 25%;
+}
+/* モバイル表示用の日の出写真（PCでは非表示） */
+.opening-photo {
+  display: none;
+  position: absolute;
+  inset: 0;
+  background: url('images/rachel-cook-mOcdke2ZQoE-unsplash.jpg') center / cover no-repeat;
+  animation: photoZoom 4s ease-out forwards;
+}
+@keyframes photoZoom {
+  from { transform: scale(1.12); }
+  to   { transform: scale(1.02); }
+}
+/* モバイル：動画の代わりに写真を表示し、ロゴは明るい朝焼けの空に重なる位置へ */
+@media (max-width: 768px) {
+  .opening-video { display: none; }
+  .opening-photo { display: block; }
+  .opening {
+    justify-content: flex-start;
+    padding-top: 20vh;
+  }
 }
 /* シネマティックなビネット（四隅の減光）：写真の上に重ねる */
 .opening::after {

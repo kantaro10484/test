@@ -170,7 +170,12 @@ if (opening) {
     }
 
     const openingVideo = opening.querySelector('.opening-video');
-    if (openingVideo) {
+    const mobileOpening = window.matchMedia('(max-width: 768px)').matches;
+
+    if (openingVideo && !mobileOpening) {
+      // PC：動画を読み込んで再生（モバイルでは3.8MBの動画を読み込まない）
+      openingVideo.src = openingVideo.dataset.src;
+
       // 動画が最後まで再生されたら、または読み込みエラー時に閉じる
       openingVideo.addEventListener('ended', closeOpening);
       openingVideo.addEventListener('error', closeOpening);
@@ -182,6 +187,8 @@ if (opening) {
       // 念のための上限（動画が長くても8秒で本体へ）
       setTimeout(closeOpening, 8000);
     } else {
+      // モバイル：写真表示のため動画要素は削除し、3.4秒で本体へ
+      if (openingVideo) openingVideo.remove();
       setTimeout(closeOpening, 3400);
     }
   }
