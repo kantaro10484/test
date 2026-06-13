@@ -1089,6 +1089,9 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
     justify-content: flex-start;
     padding-top: 20vh;
   }
+  .opening-sub {
+    margin-top: 1.5rem;
+  }
 }
 /* シネマティックなビネット（四隅の減光）：写真の上に重ねる */
 .opening::after {
@@ -1118,10 +1121,6 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
   display: flex;
   overflow: hidden;
   line-height: 1.2;
-  text-shadow:
-    0 1px 4px rgba(255, 255, 255, 0.75),
-    0 3px 10px rgba(0, 0, 0, 0.6),
-    0 6px 28px rgba(0, 0, 0, 0.5);
 }
 .opening-logo span {
   display: inline-block;
