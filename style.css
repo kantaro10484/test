@@ -1088,6 +1088,8 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
   .opening {
     justify-content: flex-start;
     padding-top: 20vh;
+    /* 写真の読み込み中も違和感がないよう、写真に近い朝焼けのグラデーションを下地に */
+    background: linear-gradient(180deg, #e8821f 0%, #f2a93e 28%, #4a3a33 55%, #20242a 100%);
   }
   .opening-logo {
     color: #fff;
